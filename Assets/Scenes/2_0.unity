@@ -214,8 +214,28 @@ PrefabInstance:
       value: 2_0
       objectReference: {fileID: 0}
     - target: {fileID: 4893063851377686782, guid: 0242e322cdede2845a89d646859e88d7, type: 3}
+      propertyPath: scenesList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893063851377686782, guid: 0242e322cdede2845a89d646859e88d7, type: 3}
       propertyPath: ensureLoaded.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893063851377686782, guid: 0242e322cdede2845a89d646859e88d7, type: 3}
+      propertyPath: scenesList.Array.data[0]
+      value: 2_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893063851377686782, guid: 0242e322cdede2845a89d646859e88d7, type: 3}
+      propertyPath: scenesList.Array.data[1]
+      value: 1_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893063851377686782, guid: 0242e322cdede2845a89d646859e88d7, type: 3}
+      propertyPath: scenesList.Array.data[2]
+      value: 1_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893063851377686782, guid: 0242e322cdede2845a89d646859e88d7, type: 3}
+      propertyPath: scenesList.Array.data[3]
+      value: 2_1
       objectReference: {fileID: 0}
     - target: {fileID: 4893063851377686782, guid: 0242e322cdede2845a89d646859e88d7, type: 3}
       propertyPath: ensureLoaded.Array.data[0]
