@@ -6,34 +6,121 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 using Spes.UI;
+using UnityEngine.AddressableAssets;
+using Unity.Collections;
+
+public static class PlayerControllerSerializationHelper
+{
+    public static void ReadValueSafe(this FastBufferReader reader, out string asset)
+    {
+        reader.ReadValueSafe(out string readed);
+        asset = readed;
+    }
+
+    public static void WriteValueSafe(this FastBufferWriter writer, in string asset)
+    {
+        writer.WriteValueSafe(asset);
+    }
+
+    public static void SerializeValue<T>(this BufferSerializer<T> reader, ref string assetReference) where T : IReaderWriter
+    {
+        if (reader.IsReader)
+        {
+            reader.GetFastBufferReader().ReadValueSafe(out string guid);
+            assetReference = guid;
+        }
+        else
+        {
+            reader.GetFastBufferWriter().WriteValueSafe(assetReference);
+        }
+    }
+}
 
 public class PlayerController : NetworkBehaviour, IDamageable
 {
+    #region Variables
+
     [Inject] public Camera mainCameraRef;
-    [Inject] public WorldCompositor compositor;
-    protected Vector3 moveDirection;
+    [Inject] protected GameCore gameInstance;
+
+    [Header("Components")]
+    [SerializeField] protected PlayerStorage storage;
     [SerializeField] protected SceneSwitchController sceneSwither;
-    [SerializeField] protected float speed = 2f;
     [SerializeField] protected Transform cameraSocket;
     [SerializeField] protected PlayerUpheadUI upheadUI;
 
-    protected PlayerStats playerStats;
+    [Header("Properties")]
+    [SerializeField] protected float speed = 2f;
 
-    NetworkVariable<string> playerName = new NetworkVariable<string>("", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    [Header("Runtime references")]
+    [ReadOnly] public ServerBase serverRef;
+    [ReadOnly] public WorldCompositor compositor;
+
+    protected Vector3 moveDirection;
+
+    public static PlayerController local;
+
+    NetworkVariable<FixedString128Bytes> playerName = new NetworkVariable<FixedString128Bytes>("", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+    #endregion
+
+    #region UnityCallbacks
 
     public void Awake()
     {
-        ClientBase.instance.diContainer.InjectGameObject(gameObject);
+        ProjectContext.Instance.Container.InjectGameObject(gameObject);
     }
+
+    #endregion
+
+    #region NetcodeCallbacks
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
 
         if (IsServer)
+        {
             sceneSwither.InitAsServer();
+        }
+        if (IsClient)
+        {
+            if (IsOwner)
+                local = this;
+            name = IsOwner ? "LocalPlayerController_" + OwnerClientId : "PlayerController_" + OwnerClientId;
+        }
 
         SetupComponents();
+        if (IsServer)
+            S_CreatePlayerStorage();
+    }
+
+    #endregion
+
+    #region Functions
+
+    public void SetCompositor(WorldCompositor comp)
+    {
+        compositor = comp;
+        sceneSwither.SetCompositor(comp);
+    }
+
+    protected void S_SpawnPlayerCharacter()
+    {
+        var asset = gameInstance.Characters.characters[0].playerAssetReference;
+        serverRef.assetManager.CallPrefabLoad(asset, () =>
+        {
+            asset.InstantiateAsync().Completed += y =>
+            {
+                y.Result.GetComponent<NetworkObject>().SpawnWithOwnership(OwnerClientId);
+            };
+        }, OwnerClientId);
+    }
+
+    protected void S_CreatePlayerStorage()
+    {
+        //Создание и исинхронизация состояния игрока
+        S_SpawnPlayerCharacter();
     }
 
     private void SetupComponents()
@@ -49,29 +136,18 @@ public class PlayerController : NetworkBehaviour, IDamageable
         upheadUI.Init(this, 1.0f);
     }
 
-    public void OnMovement(InputValue value)
-    {
-        var vec = value.Get<Vector2>();
-        moveDirection = Vector3.zero;
-        moveDirection.x += vec.x;
-        moveDirection.z += vec.y;
-    }
-
-    public void Update()
-    {
-        transform.position += moveDirection * speed * Time.deltaTime;
-    }
+    #endregion
 
     #region IDamageable
 
     public DamageableInfo GetInfo()
     {
-        return new DamageableInfo() { component = this, currentHP = playerStats.HP, maxHP = playerStats.MaxHP, title = playerName.Value, receiverType = EDamageSubject.Player };
+        return new DamageableInfo();//{ component = this, currentHP = playerStats.HP, maxHP = playerStats.MaxHP, title = playerName.Value.Value, receiverType = EDamageSubject.Player };
     }
 
     public void ApplyDamage(Damage dmg)
     {
-        playerStats.HP -= dmg.damage;
+        //playerStats.HP -= dmg.damage;
     }
 
     #endregion

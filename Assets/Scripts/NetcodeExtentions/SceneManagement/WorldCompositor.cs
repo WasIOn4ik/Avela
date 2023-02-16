@@ -10,69 +10,13 @@ using UnityEditor.Compilation;
 using Unity.Collections;
 using System.Text;
 
-public static class SerializationExtensions
-{
-    public static void ReadValueSafe(this FastBufferReader reader, out string[] stringArr)
-    {
-        reader.ReadValueSafe(out string readed);
-        stringArr = String.IsNullOrEmpty(readed) ? new string[0] : readed.Split('\n');
-    }
-
-    public static void WriteValueSafe(this FastBufferWriter writer, in string[] stringArr)
-    {
-        string res = "";
-        for (int i = 0; i < stringArr.Length;)
-        {
-            res += stringArr[i];
-            i++;
-            if (i != stringArr.Length)
-            {
-                res += '\n';
-            }
-        }
-        writer.WriteValueSafe(res);
-    }
-
-    public static void SerializeValue<TReaderWriter>(this BufferSerializer<TReaderWriter> serializer, ref string[] stringArr) where TReaderWriter : IReaderWriter
-    {
-        if (serializer.IsReader)
-        {
-            int count = 0;
-
-            serializer.SerializeValue(ref count);
-
-            string[] vs = new string[count];
-
-            string tempStr = "";
-            for (int i = 0; i < count; i++)
-            {
-                serializer.SerializeValue(ref tempStr);
-                vs[i] = tempStr;
-            }
-            stringArr = vs;
-        }
-        else
-        {
-            int count = stringArr.Length;
-            serializer.SerializeValue(ref count);
-
-            string tempStr = "";
-
-            foreach (var s in stringArr)
-            {
-                tempStr = s;
-                serializer.SerializeValue(ref tempStr);
-            }
-        }
-    }
-}
-
 public class WorldCompositor : NetworkBehaviour
 {
     #region ServerVariables
     protected Dictionary<ulong, List<SceneDescriptor>> loadedScenes = new();
     protected Dictionary<ulong, ulong[]> cachedReceivers = new();
     public List<ServerSceneDescriptor> serverScenes = new();
+    public string baseSceneToLoad;
     #endregion
 
     public delegate void SceneDelegateHandler(ulong clientID, string[] scenes);
@@ -102,6 +46,7 @@ public class WorldCompositor : NetworkBehaviour
 
     public void Awake()
     {
+        SceneManager.LoadSceneAsync(baseSceneToLoad, LoadSceneMode.Additive);
     }
 
     public override void OnNetworkSpawn()
@@ -353,7 +298,7 @@ public class WorldCompositor : NetworkBehaviour
             Debug.Log($"Обработка сцены {s.ToString()}");
         }
 
-        Debug.Log("\nНа отгрузку");
+        Debug.Log("На отгрузку");
         foreach (var s in scenesToUnloadArr)
         {
             Debug.Log($"Обработка сцены {s.ToString()}");

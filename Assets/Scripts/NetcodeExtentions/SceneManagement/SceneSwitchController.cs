@@ -16,7 +16,7 @@ public enum SceneTriggerType
 [RequireComponent(typeof(Collider))]
 public class SceneSwitchController : MonoBehaviour
 {
-    [Inject] protected WorldCompositor worldCompositor;
+    [SerializeField] protected WorldCompositor compositor;
 
     delegate void triggerEnterDelegate(Collider other);
 
@@ -48,6 +48,11 @@ public class SceneSwitchController : MonoBehaviour
         triggerExitFunc(other);
     }
 
+    public void SetCompositor(WorldCompositor comp)
+    {
+        compositor = comp;
+    }
+
     public void HandleServerTriggerEnter(Collider other)
     {
         var chunk = other.GetComponent<ChunkNode>();
@@ -57,15 +62,15 @@ public class SceneSwitchController : MonoBehaviour
             switch (chunk.triggerType)
             {
                 case SceneTriggerType.LoadTrigger:
-                    worldCompositor.MarkNeeded(chunk.scenesList, networkObject.OwnerClientId, chunk.nodeName);
+                    compositor.MarkNeeded(chunk.scenesList, networkObject.OwnerClientId, chunk.nodeName);
                     break;
                 case SceneTriggerType.UnloadTrigger:
-                    worldCompositor.MarkUnneeded(chunk.scenesList, networkObject.OwnerClientId, chunk.nodeName);
+                    compositor.MarkUnneeded(chunk.scenesList, networkObject.OwnerClientId, chunk.nodeName);
                     break;
                 case SceneTriggerType.SwitchTrigger:
                     break;
                 case SceneTriggerType.TileTrigger:
-                    worldCompositor.MarkNeeded(chunk.scenesList, networkObject.OwnerClientId, chunk.nodeName);
+                    compositor.MarkNeeded(chunk.scenesList, networkObject.OwnerClientId, chunk.nodeName);
                     break;
             }
         }
@@ -80,7 +85,7 @@ public class SceneSwitchController : MonoBehaviour
             if (chunk.triggerType != SceneTriggerType.TileTrigger)
                 return;
 
-            worldCompositor.MarkUnneeded(chunk.scenesList, networkObject.OwnerClientId, chunk.nodeName);
+            compositor.MarkUnneeded(chunk.scenesList, networkObject.OwnerClientId, chunk.nodeName);
         }
     }
 

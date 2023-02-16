@@ -5,13 +5,12 @@ using Zenject;
 
 public class GameBaseInstaller : MonoInstaller
 {
-    [SerializeField] private GameBase gameBasePrefab;
+    [SerializeField] private GameplayBase gameBasePrefab;
 
 
     public override void InstallBindings()
     {
-        Debug.Log("1111");
-        Container.Bind<GameBase>().FromComponentsInNewPrefab(gameBasePrefab).AsSingle().NonLazy();
+        Container.Bind<GameplayBase>().FromComponentsInNewPrefab(gameBasePrefab).AsSingle().NonLazy();
         //Container.InstantiatePrefabForComponent<GameBase>(gameBasePrefab, Vector3.zero, Quaternion.identity, null);//
     }
 }

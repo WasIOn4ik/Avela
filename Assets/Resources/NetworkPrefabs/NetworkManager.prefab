@@ -57,6 +57,21 @@ MonoBehaviour:
       SourcePrefabToOverride: {fileID: 0}
       SourceHashToOverride: 820250774
       OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 6990123824581005582, guid: f8d7d557e2a74dd40bb753824a07b063, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 820250774
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 1919427149336095134, guid: 11fa182b8d832a44e84dca7105729f0a, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 820250774
+      OverridingTargetPrefab: {fileID: 0}
+    - Override: 0
+      Prefab: {fileID: 2759148461694519623, guid: dc8ec33955f21094babdd2e67fc4bedf, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 820250774
+      OverridingTargetPrefab: {fileID: 0}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 1
@@ -65,7 +80,7 @@ MonoBehaviour:
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
     EnableSceneManagement: 0
-    ForceSamePrefabs: 1
+    ForceSamePrefabs: 0
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
     RpcHashSize: 0
@@ -93,7 +108,7 @@ MonoBehaviour:
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
     Address: 127.0.0.1
-    Port: 7777
+    Port: 2545
     ServerListenAddress: 
   DebugSimulator:
     PacketDelayMS: 0

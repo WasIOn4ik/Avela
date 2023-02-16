@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using Zenject;
 
@@ -9,14 +10,14 @@ namespace Spes.UI
     public class MainMenuScript : MonoBehaviour
     {
         [SerializeField] protected TMP_InputField playerNameIF;
-        [Inject] [SerializeField] protected GameBase gameBaseRef;
-
+        [Inject] protected GameplayBase gameBaseRef;
+        [Inject] protected GameCore gameInstance;
 
         protected string playerName;
 
         public void OnStartClientClicked()
         {
-            gameBaseRef.playerSettings.playerName = playerNameIF.text;
+            gameInstance.Settings.playerName = playerNameIF.text;
             gameBaseRef.SetupAsClient();
         }
 
@@ -27,7 +28,7 @@ namespace Spes.UI
 
         public void OnStartHostClicked()
         {
-            gameBaseRef.playerSettings.playerName = playerNameIF.text;
+            gameInstance.Settings.playerName = playerNameIF.text;
             gameBaseRef.SetupAsHost();
         }
     }

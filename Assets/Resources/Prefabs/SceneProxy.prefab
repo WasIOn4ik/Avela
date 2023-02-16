@@ -45,4 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   semiNetworkManager: {fileID: 0}
+  config: {fileID: 11400000, guid: 8676662071b30be4fa10959789cd3cd7, type: 2}
   registry: []
+  count: 0

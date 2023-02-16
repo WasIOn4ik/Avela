@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2759148461694519621}
   - component: {fileID: 2759148461694519622}
   - component: {fileID: -7638509759590028846}
+  - component: {fileID: -7427965780000179435}
+  - component: {fileID: 1562398310380009279}
   m_Layer: 0
   m_Name: NetBase
   m_TagString: Untagged
@@ -46,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b02e283be7512284aba9a850b739ea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseSceneToLoad: 0_0
 --- !u!114 &2759148461694519622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,3 +78,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bIseWorldCompositor: 1
+--- !u!114 &-7427965780000179435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2759148461694519623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03e7c9654ed69c3489d9233bbb571226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  compositor: {fileID: 2759148461694519621}
+  semiNetwork: {fileID: -7638509759590028846}
+  gameBase: {fileID: 0}
+--- !u!114 &1562398310380009279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2759148461694519623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3395791979735984b8a62237925cc7d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

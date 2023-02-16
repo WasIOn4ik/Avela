@@ -8,6 +8,7 @@ using UnityEngine;
 public class SemiNetworkLocationProxy : MonoBehaviour
 {
     public SemiNetworkManager semiNetworkManager;
+    public SemiNetworkedConfigSO config;
     [SerializeField] public List<SemiNetworkObjectEntry> registry = new();
     [SerializeField] public int count;
 
@@ -25,13 +26,13 @@ public class SemiNetworkLocationProxy : MonoBehaviour
         RemoveProxy(this);
     }
 
-    public static void AddProxy(SemiNetworkLocationProxy proxy)
+    public void AddProxy(SemiNetworkLocationProxy proxy)
     {
-        SemiNetworkedConfigSO.Instance.AddProxy(proxy);
+        config.AddProxy(proxy);
     }
-    public static void RemoveProxy(SemiNetworkLocationProxy proxy)
+    public void RemoveProxy(SemiNetworkLocationProxy proxy)
     {
-        SemiNetworkedConfigSO.Instance.RemoveProxy(proxy);
+        config.RemoveProxy(proxy);
     }
 
     public void RegisterInstance(SemiBehaviour instance)

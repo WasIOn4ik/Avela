@@ -40,8 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7173496811050744947}
-  - component: {fileID: 7173496811050744946}
-  - component: {fileID: 7173496811050744949}
   - component: {fileID: 7173496811050744948}
   - component: {fileID: 7173496811050744950}
   - component: {fileID: 7173496811050744911}
@@ -73,56 +71,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7173496811050744946
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7173496811050744953}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &7173496811050744949
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7173496811050744953}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &7173496811050744948
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -216,15 +164,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7173496811050744953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f819792c0581e348b1a8662416d1922, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bd6eaf6c5a7b0740b1173d1b9fe4d7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mainCameraRef: {fileID: 0}
+  charactersLib: {fileID: 11400000, guid: 5e48017988df35343a2976778ed7a41c, type: 2}
   compositor: {fileID: 0}
   sceneSwither: {fileID: 7173496811050744908}
-  speed: 32
+  speed: 2
   cameraSocket: {fileID: 2972722768883540903}
   upheadUI: {fileID: 8539198997609387928}
+  serverRef: {fileID: 0}
+  asset:
+    m_AssetGUID: 11fa182b8d832a44e84dca7105729f0a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &7173496811050744908
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 7637641044585963328}
   - component: {fileID: 7637641044585963331}
   - component: {fileID: 7637641044585963330}
+  - component: {fileID: 9020266128408277654}
   m_Layer: 0
   m_Name: GameBase
   m_TagString: Untagged
@@ -218,11 +219,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7637641044585963356}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a540850b624da5e438bc66b8df793013, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a4ced0579f91c443b62d6d04fdc675c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   client: {fileID: 7637641044585963328}
   server: {fileID: 7637641044585963330}
+  cameraRef: {fileID: 5052503813188046985}
+  gameInstance: {fileID: 9020266128408277654}
 --- !u!114 &7637641044585963330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,3 +242,18 @@ MonoBehaviour:
   networkManagerPrefab: {fileID: 3651097160554329062, guid: 4e6c36bedb2ecb14799701a9d1a0ddbf, type: 3}
   playerControllerPrefab: {fileID: 7173496811050744944, guid: 4b7e1208ac9f5714298ea2e73ede986e, type: 3}
   worldCompositorPrefab: {fileID: 2759148461694519621, guid: dc8ec33955f21094babdd2e67fc4bedf, type: 3}
+  compositor: {fileID: 0}
+--- !u!114 &9020266128408277654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7637641044585963356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c61044e553ccd48a8f73b40742d217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charactersLib: {fileID: 11400000, guid: 5e48017988df35343a2976778ed7a41c, type: 2}
+  localizationLib: {fileID: 0}
